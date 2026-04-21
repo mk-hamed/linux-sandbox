@@ -1,4 +1,0 @@
-locals {
-    env       = "staging"
-    
-}
