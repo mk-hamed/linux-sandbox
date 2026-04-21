@@ -1,14 +1,10 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-
-  enable_dns_support = true
-  enable_dns_hostnames = true
-
-  
+resource "aws_budgets_budget" "linux-sandbox" {
+  name              = "linux-sandbox-budget"
+  budget_type       = "COST"
+  limit_amount      = "10.0"
+  limit_unit        = "USD"
+  time_unit         = "MONTHLY"
+  time_period_start = "2026-04-04_20:00"
 }
 
 
