@@ -28,7 +28,7 @@ module "eks" {
   control_plane_subnet_ids = concat(module.eks-vpc.public_subnets, module.eks-vpc.private_subnets)
 
   authentication_mode                      = "API"
-  enable_cluster_creator_admin_permissions = false
+  enable_cluster_creator_admin_permissions = true
 
   dataplane_wait_duration = "40s"
 
