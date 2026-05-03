@@ -74,3 +74,11 @@ variable "instance_type" {
   type = list(string)
   default = ["t3.small"]
 }
+
+# Network Load Balancer
+
+variable "nlb_zone_id" {
+  type        = string
+  description = "Hosted zone ID for the NLB - varies by region"
+  default     = "Z35SXDOTRQ7X7K" # us-east-1 NLB zone ID
+}
