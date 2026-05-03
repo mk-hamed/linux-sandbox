@@ -1,0 +1,8 @@
+# Get latest ubuntu image
+FROM ubuntu:22.04
+
+# Install updates
+RUN apt-get update && apt-get install \
+    curl wget git vim nano net-tools 
+
+CMD ["/bin/bash"]
