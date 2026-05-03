@@ -3,6 +3,10 @@ kind: Service
 metadata: 
   name: linux-sandbox
   namespace: linux-sandbox
+  annotations: 
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
+    service.beta.kubernetes.io/aws-load-balancer-stickiness-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-stickiness-expiration: "86400"
 
 spec:
   selector:
