@@ -12,7 +12,7 @@ resource "aws_route53_record" "linux_sandbox" {
 
     alias {
         name = data.kubernetes_service.linux_sandbox.status[0].load_balancer[0].ingress[0].hostname
-        zone_id = elb.nlb_zone_id
+        zone_id = var.elb_zone_id
         evaluate_target_health = true
     }
 }
