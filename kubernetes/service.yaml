@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: linux-sandbox
+  namespace: linux-sandbox
+
+spec:
+  selector:
+    app: linux-sandbox
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 7681
