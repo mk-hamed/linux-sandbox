@@ -77,7 +77,7 @@ variable "instance_type" {
 
 # Network Load Balancer
 
-variable "nlb_zone_id" {
+variable "elb_zone_id" {
   type        = string
   description = "Hosted zone ID for the NLB - varies by region"
   default     = "Z35SXDOTRQ7X7K" # us-east-1 NLB zone ID
