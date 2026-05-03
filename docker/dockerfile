@@ -1,8 +1,38 @@
 # Get latest ubuntu image
 FROM ubuntu:22.04
 
-# Install updates
-RUN apt-get update && apt-get install \
-    curl wget git vim nano net-tools 
+# Avoid interactive prompts during build
+ENV DEBIAN_FRONTEND=noninteractive
 
-CMD ["/bin/bash"]
+# Install updates and tools
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    vim \
+    nano \
+    net-tools \
+    iputils-ping \
+    man-db \
+    sudo \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install ttyd (web terminal)
+RUN curl -L https://github.com/tsl0922/ttyd/releases/download/1.7.3/ttyd.x86_64 \
+    -o /usr/local/bin/ttyd \
+    && chmod +x /usr/local/bin/ttyd
+
+# Create a non-root practice user
+RUN useradd -m -s /bin/bash sandboxuser \
+    && echo "sandboxuser:sandbox" | chpasswd \
+    && usermod -aG sudo sandboxuser
+
+# Expose ttyd port
+EXPOSE 7681
+
+# Switch to practice user
+USER sandboxuser
+WORKDIR /home/sandboxuser
+
+# Start ttyd - serves bash over browser
+CMD ["ttyd", "--writable", "bash"]
