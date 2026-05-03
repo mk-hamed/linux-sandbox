@@ -4,9 +4,9 @@ metadata:
   name: linux-sandbox
   namespace: linux-sandbox
   annotations: 
-    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "3600"
-    service.beta.kubernetes.io/aws-load-balancer-stickiness-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-stickiness-expiration: "86400"
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 
 spec:
   selector:
