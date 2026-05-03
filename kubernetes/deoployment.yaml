@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: linux-sandbox
+  namespace: linux-sandbox
+
+spec: 
+  replicas: 1
+  selector:
+    matchLabels: 
+      app: linux-sandbox
+  template:
+    metadata:
+      labels: 
+        app: linux-sandbox
+    spec:
+      containers:
+      - name: linux-sandbox
+        image: 705738638798.dkr.ecr.us-east-1.amazonaws.com/linux-sandbox:latest
+        ports: 
+        - containerPort: 7681
