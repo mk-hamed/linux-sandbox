@@ -44,7 +44,7 @@ module "eks" {
     group1 = {
       name           = "linux-sandbox-group"
       ami_type       = "AL2023_x86_64_STANDARD"
-      instance_types = ["t3.micro"]
+      instance_types = ["t3.small"]
       capacity_type  = "SPOT"
       min_size       = 1
       max_size       = 3

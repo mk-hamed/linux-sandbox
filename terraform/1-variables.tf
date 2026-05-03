@@ -69,3 +69,8 @@ variable "eks_version" {
   description = "EKS version."
   default     = "1.32"
 }
+
+variable "instance_type" {
+  type = list(string)
+  default = ["t3.small"]
+}
