@@ -4,7 +4,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   name   = "linux-sandbox"
-  region = "eu-east-1"
+  region = "us-east-1"
 
   vpc_cidr = "10.0.0.0/16"
   azs      = slice(data.aws_availability_zones.available.names, 0, 3)
@@ -67,5 +67,5 @@ variable "cluster_name" {
 variable "eks_version" {
   type        = string
   description = "EKS version."
-  default     = "1.34"
+  default     = "1.32"
 }
