@@ -71,7 +71,7 @@ variable "eks_version" {
 }
 
 variable "instance_type" {
-  type = list(string)
+  type    = list(string)
   default = ["t3.small"]
 }
 
