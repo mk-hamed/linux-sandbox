@@ -75,6 +75,16 @@ variable "instance_type" {
   default = ["t3.small"]
 }
 
+variable "node_desired_size" {
+  type    = number
+  default = 2
+}
+
+variable "node_min_size" {
+  type    = number
+  default = 1
+}
+
 # Network Load Balancer
 
 variable "elb_zone_id" {
