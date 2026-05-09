@@ -60,7 +60,7 @@ resource "helm_release" "ingress-nginx" {
   create_namespace = true
 
   set = [ {
-    name = "controller.service.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-type"
+    name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
     value = "nlb"
   } ]
 
