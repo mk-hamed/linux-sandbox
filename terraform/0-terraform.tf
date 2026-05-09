@@ -55,7 +55,14 @@ resource "helm_release" "ingress-nginx" {
   name             = "ingress-nginx"
   namespace        = "ingress-nginx"
   repository       = "https://kubernetes.github.io/ingress-nginx"
-  version          = ""
-  chart            = "chart"
+  version          = "1.15.1"
+  chart            = "ingress-nginx"
   create_namespace = true
+
+  set = [ {
+    name = "controller.service.annotations.service\.beta\.kubernetes\.io/aws-load-balancer-type"
+    value = "nlb"
+  } ]
+
+  depends_on = [ module.eks ]
 }
