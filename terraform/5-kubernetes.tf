@@ -48,15 +48,6 @@ resource "kubernetes_service_v1" "linux_sandbox" {
   metadata {
     name      = "linux-sandbox"
     namespace = kubernetes_deployment_v1.linux_sandbox.metadata[0].name
-
-    annotations = {
-      # attach ACM SSL certification to our classic load balancer (CLB) service
-      "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" = "arn:aws:acm:us-east-1:705738638798:certificate/29234ef0-e457-4334-9f8d-5b954c71bd4b"
-      # public port 443 configuration for CLB
-      "service.beta.kubernetes.io/aws-load-balancer-ssl-ports" = "443"
-      # idle timeout 
-      "service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout" = "3600"
-    }
   }
 
   spec {
@@ -64,7 +55,7 @@ resource "kubernetes_service_v1" "linux_sandbox" {
       app = "linux-sandbox"
     }
 
-    type = "LoadBalancer"
+    type = "ClusterIP"
 
     port {
       name        = "http"
