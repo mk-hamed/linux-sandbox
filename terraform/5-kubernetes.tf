@@ -6,9 +6,9 @@ resource "kubernetes_namespace" "linux_sandbox" {
   depends_on = [module.eks]
 }
 
-################################
-#### ttyd terminal manifest ####
-################################
+#################################
+#### TTYD Terminal Manifests ####
+#################################
 
 resource "kubernetes_deployment_v1" "linux_sandbox" {
   metadata {
@@ -73,7 +73,7 @@ resource "kubernetes_service_v1" "linux_sandbox" {
 }
 
 ################################
-#### landing page manifest ####
+#### Landing Page Manifests ####
 ################################
 
 resource "kubernetes_deployment_v1" "linux_sandbox_landing" {
@@ -136,4 +136,50 @@ resource "kubernetes_service_v1" "linux_sandbox_landing" {
   }
 
   depends_on = [module.eks]
+}
+
+######################################
+#### Ingress Controller Manifests ####
+######################################
+
+resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
+  metadata {
+    name = "linux_sandbox_ingress"
+    namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
+  }
+
+  spec {
+    ingress_class_name = "nginx"
+    rule {
+      host = "linuxsandbox.dev"
+      http {
+        # Routing to ttyd terminal 
+        path {
+          path = "/terminal"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = kubernetes_service_v1.linux_sandbox.metadata[0].name
+              port {
+                number = 7681
+              }
+            }
+          }
+        }
+        # Routing to landing page
+        path {
+          path = "/"
+          path_type = "Prefix"
+          backend {
+            service {
+              name = kubernetes_service_v1.linux_sandbox_landing.metadata[0].name
+              port {
+                number = 80
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
