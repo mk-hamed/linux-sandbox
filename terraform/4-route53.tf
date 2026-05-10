@@ -4,14 +4,21 @@ resource "aws_route53_record" "linux_sandbox" {
   type    = "A"
 
   alias {
-    name                   = kubernetes_service_v1.linux_sandbox.status[0].load_balancer[0].ingress[0].hostname
+    name                   = data.kubernetes_service_v1.ingress-nginx-ingress-nginx-controller.status[0].load_balancer[0].ingress[0].hostname
     zone_id                = var.elb_zone_id
     evaluate_target_health = true
   }
 
-  depends_on = [kubernetes_service_v1.linux_sandbox]
+  depends_on = [helm_release.ingress-nginx]
 }
 
 data "aws_route53_zone" "linux_sandbox" {
   name = "linuxsandbox.dev"
+}
+
+data "kubernetes_service_v1" "ingress-nginx-ingress-nginx-controller" {
+  metadata {
+    name = "ingress-nginx-ingress-nginx-controller"
+    namespace = "ingress-nginx" 
+  }
 }
