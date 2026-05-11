@@ -73,3 +73,18 @@ resource "helm_release" "ingress-nginx" {
 
   depends_on = [module.eks]
 }
+
+resource "helm_release" "cert-manager" {
+  name = "cert-manager"
+  namespace = "cert-manager"
+  repository = "https://charts.jetstack.io"
+  chart = "cert-manager"
+  create_namespace = true
+
+  set = [ {
+    name = "crds.enabled"
+    value = "true"
+  } ]
+
+  depends_on = [ module.eks ]
+}

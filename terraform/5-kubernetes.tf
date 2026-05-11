@@ -148,13 +148,18 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
     namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
 
     annotations = {
-      "nginx.ingress.kubernetes.io/ssl-redirect"              = "false"
-      "service.beta.kubernetes.io/aws-load-balancer-ssl-cert" = "arn:aws:acm:us-east-1:705738638798:certificate/29234ef0-e457-4334-9f8d-5b954c71bd4b"
+      "nginx.ingress.kubernetes.io/ssl-redirect"              = "true"
+      #"service.beta.kubernetes.io/aws-load-balancer-ssl-cert" = "arn:aws:acm:us-east-1:705738638798:certificate/29234ef0-e457-4334-9f8d-5b954c71bd4b"
+      "cert-manager.io/cluster-issuer" = "letsencrypt-prod"
     }
   }
 
   spec {
     ingress_class_name = "nginx"
+    tls {
+      secret_name = "linuxsandbox-tls"
+      hosts = [ linuxsandbox.dev ]
+    }
     rule {
       host = "linuxsandbox.dev"
       http {
@@ -187,4 +192,36 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
       }
     }
   }
+}
+
+resource "kubernetes_manifest" "cluster_issuer" {
+  manifest = {
+    apiVersion = "cert-manager.io/v1"
+    kind       = "ClusterIssuer"
+
+    metadata = {
+      name = "letsencrypt-prod"
+    }
+
+    spec = {
+      acme = {
+        email  = "hamedk.moh@gmail.com"
+        server = "https://acme-v02.api.letsencrypt.org/directory"
+
+        privateKeySecretRef = {
+          name = "letsencrypt-prod-key"
+        }
+
+        solvers = [{
+          http01 = {
+            ingress = {
+              class = "nginx"
+            }
+          }
+        }]
+      }
+    }
+  }
+
+  depends_on = [helm_release.cert-manager]
 }
