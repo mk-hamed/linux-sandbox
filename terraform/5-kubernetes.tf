@@ -158,7 +158,7 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
     ingress_class_name = "nginx"
     tls {
       secret_name = "linuxsandbox-tls"
-      hosts = [ linuxsandbox.dev ]
+      hosts = [ "linuxsandbox.dev" ]
     }
     rule {
       host = "linuxsandbox.dev"
