@@ -144,7 +144,7 @@ resource "kubernetes_service_v1" "linux_sandbox_landing" {
 
 resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
   metadata {
-    name = "linux_sandbox_ingress"
+    name = "linux-sandbox-ingress"
     namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
   }
 
