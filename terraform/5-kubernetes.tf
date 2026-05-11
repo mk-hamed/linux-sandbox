@@ -146,6 +146,11 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
   metadata {
     name      = "linux-sandbox-ingress"
     namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
+
+    annotations = {
+      nginx.ingress.kubernetes.io / ssl-redirect : "true"
+      service.beta.kubernetes.io / aws-load-balancer-ssl-cert : "arn:aws:acm:us-east-1:705738638798:certificate/29234ef0-e457-4334-9f8d-5b954c71bd4b"
+    }
   }
 
   spec {
