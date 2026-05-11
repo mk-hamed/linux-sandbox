@@ -59,10 +59,10 @@ resource "helm_release" "ingress-nginx" {
   chart            = "ingress-nginx"
   create_namespace = true
 
-  set = [ {
-    name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
+  set = [{
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
     value = "nlb"
-  } ]
+  }]
 
-  depends_on = [ module.eks ]
+  depends_on = [module.eks]
 }

@@ -117,7 +117,7 @@ resource "kubernetes_deployment_v1" "linux_sandbox_landing" {
 resource "kubernetes_service_v1" "linux_sandbox_landing" {
   metadata {
     name      = "linux-sandbox-landing"
-    namespace = kubernetes_deployment_v1.linux_sandbox_landing.metadata[0].name
+    namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
   }
 
   spec {
@@ -135,7 +135,7 @@ resource "kubernetes_service_v1" "linux_sandbox_landing" {
     }
   }
 
-  depends_on = [module.eks]
+  depends_on = [module.eks, helm_release.ingress-nginx]
 }
 
 ######################################
@@ -144,7 +144,7 @@ resource "kubernetes_service_v1" "linux_sandbox_landing" {
 
 resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
   metadata {
-    name = "linux-sandbox-ingress"
+    name      = "linux-sandbox-ingress"
     namespace = kubernetes_namespace.linux_sandbox.metadata[0].name
   }
 
@@ -155,7 +155,7 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
       http {
         # Routing to ttyd terminal 
         path {
-          path = "/terminal"
+          path      = "/terminal"
           path_type = "Prefix"
           backend {
             service {
@@ -168,7 +168,7 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
         }
         # Routing to landing page
         path {
-          path = "/"
+          path      = "/"
           path_type = "Prefix"
           backend {
             service {
