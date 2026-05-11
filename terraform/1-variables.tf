@@ -90,5 +90,5 @@ variable "node_min_size" {
 variable "elb_zone_id" {
   type        = string
   description = "Hosted zone ID for the NLB - varies by region"
-  default     = "Z3DZXE0Q79N41H" # us-east-1 NLB zone ID
+  default     = "Z26RNL4JYFTOTI" # us-east-1 NLB zone ID
 }
