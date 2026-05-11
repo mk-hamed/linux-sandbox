@@ -1,4 +1,4 @@
-name: Docker workflow
+name: Docker Workflow
 
 on: 
   push:
@@ -11,6 +11,7 @@ jobs:
     steps:
       - name: Check out repo
         uses: actions/checkout@v4
+        
       - name: Configure AWS Credientials 
         uses: aws-actions/configure-aws-credentials@v4
         with: 
