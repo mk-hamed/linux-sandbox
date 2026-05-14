@@ -67,4 +67,8 @@ jobs:
         id: apply 
         run: terraform apply -auto-approve -input=false
 
+      - name: Update kubeconfig
+        id: kubeconfig
+        run: aws eks update-kubeconfig --region us-east-1 --name linux-sandbox
+
     
