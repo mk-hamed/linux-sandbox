@@ -83,5 +83,3 @@ resource "helm_release" "cert-manager" {
 
   depends_on = [ module.eks ]
 }
-
-# test commit REMOVE AFTER
