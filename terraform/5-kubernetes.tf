@@ -166,7 +166,7 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
         # Routing to ttyd terminal 
         path {
           path      = "/terminal(/|$)(.*)"
-          path_type = "Prefix"
+          path_type = "ImplementationSpecific"
           backend {
             service {
               name = kubernetes_service_v1.linux_sandbox.metadata[0].name
@@ -179,7 +179,7 @@ resource "kubernetes_ingress_v1" "linux_sandbox_ingress" {
         # Routing to landing page
         path {
           path      = "/()(.*)"
-          path_type = "Prefix"
+          path_type = "ImplementationSpecific"
           backend {
             service {
               name = kubernetes_service_v1.linux_sandbox_landing.metadata[0].name
