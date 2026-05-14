@@ -71,6 +71,5 @@ jobs:
         id: kubeconfig
         run: aws eks update-kubeconfig --region us-east-1 --name linux-sandbox
 
-      # test test REMOVE WHEN DONE
 
     
