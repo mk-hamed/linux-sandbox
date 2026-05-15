@@ -13,3 +13,6 @@ The sandbox utilizes a custom Ubuntu Docker image which lives in the AWS Elastic
 ![Landing Page](screenshots/landing1.png)
 ![Landing Page](screenshots/landing2.png)
 ![Terminal](screenshots/terminal2.png)
+
+## Architecture 
+![Diagram](screenshots/linux-sandbox-diagram.pdf)
